@@ -8,6 +8,9 @@ package main.java.com.softserve.delivery.a8_2.vacationChecker;
  * <p>
  */
 
-public interface VacationChecker {
+public interface VacationReader {
 
+	String DATE_PATTERN = "\\d{4}-\\d{2}-\\d{2}";
+	String DATE_FORMAT = "yyyy-MM-dd";
+	
 }
