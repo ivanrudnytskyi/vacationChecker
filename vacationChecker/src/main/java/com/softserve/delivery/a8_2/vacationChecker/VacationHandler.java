@@ -15,7 +15,7 @@ import java.util.List;
 
 public class VacationHandler {
 
-	private static List<Vacation> vacations = new ArrayList<Vacation>();
+	private static List<Vacation> vacations;
 
 	/**
 	 * Creates List<Vacation>, sets start and end dates of each vacation.
@@ -27,6 +27,9 @@ public class VacationHandler {
 	 */
 
 	public static void setVacations(List<Date> dates) {
+		
+		vacations = new ArrayList<Vacation>();
+		
 		for (int i = 0; i < dates.size(); i += 2) {
 			Vacation vacation = new Vacation();
 			vacation.setStartDate(dates.get(i));
