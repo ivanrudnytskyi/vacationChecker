@@ -2,7 +2,7 @@
 
 *.class
 
-/doc/**/*
+/doc
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
