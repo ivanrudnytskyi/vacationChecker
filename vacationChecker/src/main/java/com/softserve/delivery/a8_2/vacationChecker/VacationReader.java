@@ -1,5 +1,8 @@
 package main.java.com.softserve.delivery.a8_2.vacationChecker;
 
+import java.util.Date;
+import java.util.List;
+
 /**
  * 
  * @author Ivan Rudnytskyj
@@ -10,7 +13,8 @@ package main.java.com.softserve.delivery.a8_2.vacationChecker;
 
 public interface VacationReader {
 
-	String DATE_PATTERN = "\\d{4}-\\d{2}-\\d{2}";
 	String DATE_FORMAT = "yyyy-MM-dd";
+	
+	List<Date> readDates();
 	
 }

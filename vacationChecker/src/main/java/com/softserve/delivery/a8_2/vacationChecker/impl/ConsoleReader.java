@@ -29,6 +29,7 @@ public class ConsoleReader implements VacationReader {
 
 	private final int VACATIONS_NUMBER = 2;
 	private final int DATES_NUMBER = VACATIONS_NUMBER * 2;
+	private final String EXIT = "q";
 
 	private final Logger logger = LoggerFactory.getLogger(ConsoleReader.class);
 
@@ -37,6 +38,7 @@ public class ConsoleReader implements VacationReader {
 	private Date parseDate(String stringDate) throws ParseException {
 		SimpleDateFormat formatter = new SimpleDateFormat(
 				VacationReader.DATE_FORMAT);
+		formatter.setLenient(false);
 		return formatter.parse(stringDate);
 	}
 
@@ -50,6 +52,7 @@ public class ConsoleReader implements VacationReader {
 	 *         month etc) - it is the responsibility of the user.
 	 */
 
+	@Override
 	public List<Date> readDates() {
 
 		logger.debug("ConsoleReader.readDates()");
@@ -64,23 +67,21 @@ public class ConsoleReader implements VacationReader {
 
 			System.out
 					.println("Enter four dates - the beginning and the end of the two vacations in the format "
-							+ DATE_FORMAT + " (only numbers).");
+							+ DATE_FORMAT + " (only numbers). To exit enter q.");
 
 			do {
 				input = br.readLine();
 
-				if (input.matches(DATE_PATTERN)) {
-					try {
-						dates.add(parseDate(input));
-					} catch (ParseException e) {
-						logger.error("ConsoleReader.readDates() exception while trying to parse console input "
-								+ e.getMessage());
+				try {
+					dates.add(parseDate(input));
+				} catch (ParseException e) {
+					if (!input.toLowerCase().equals(EXIT)) {
+						System.out
+								.println("You have entered the wrong value. Try again.");
 					}
-				} else {
-					System.out
-							.println("You have entered the wrong value. Try again.");
 				}
-			} while (dates.size() < DATES_NUMBER);
+			} while (dates.size() < DATES_NUMBER
+					&& !input.toLowerCase().equals(EXIT));
 
 		} catch (IOException e) {
 			logger.error("ConsoleReader.readDates() exception while trying to read console input "

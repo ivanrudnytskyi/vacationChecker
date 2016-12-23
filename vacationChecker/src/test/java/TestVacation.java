@@ -8,7 +8,7 @@ import main.java.com.softserve.delivery.a8_2.vacationChecker.Vacation;
 
 import org.junit.Test;
 
-public class testVacation {
+public class TestVacation {
 	
 	private final Vacation firstVacation = getVacation(FIRST_VACATION_START_DATE, FIRST_VACATION_END_DATE);
 	
@@ -51,7 +51,7 @@ public class testVacation {
 	}
 	
 	@Test
-	public void testHash(){
+	public void testHashCode(){
 		
 		Vacation secondVacation = getVacation(FIRST_VACATION_START_DATE, FIRST_VACATION_END_DATE);
 		

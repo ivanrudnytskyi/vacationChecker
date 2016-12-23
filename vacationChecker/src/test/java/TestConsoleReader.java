@@ -6,6 +6,7 @@ import static test.java.ServiceTest.DATES;
 import static test.java.ServiceTest.DATES_SIZE;
 
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
@@ -16,24 +17,24 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class TestConsoleReader {
-	
+
 	private ByteArrayInputStream in;
 	private ConsoleReader reader;
-	
+
 	@Before
 	public void setUp() {
-		 reader = new ConsoleReader();
+		reader = new ConsoleReader();
 	}
 
 	@After
 	public void cleanUp() {
 		System.setIn(System.in);
 	}
-	
+
 	@Test
 	public void testReadDatesPositive() {
 
-		in = new ByteArrayInputStream(DATES.getBytes());		
+		in = new ByteArrayInputStream(DATES.getBytes());
 
 		System.setIn(in);
 
@@ -41,17 +42,15 @@ public class TestConsoleReader {
 
 		assertTrue(dates.size() == DATES_SIZE);
 	}
-	
-	@Test (expected=NullPointerException.class)
+
+	@Test(expected = NullPointerException.class)
 	public void testReadDatesWrongFormat() {
 
 		ByteArrayInputStream in = new ByteArrayInputStream(" ".getBytes());
 
 		System.setIn(in);
 
-		List<Date> dates = reader.readDates();
-
-		assertNull(dates);
+		reader.readDates();
 	}
 
 }

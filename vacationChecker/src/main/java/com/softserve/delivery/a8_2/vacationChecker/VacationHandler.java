@@ -13,7 +13,9 @@ import java.util.List;
  *          Utility class for creating list of Vacations.
  */
 
-public class VacationHandler {
+public final class VacationHandler {
+	
+	private VacationHandler(){}
 
 	private static List<Vacation> vacations;
 

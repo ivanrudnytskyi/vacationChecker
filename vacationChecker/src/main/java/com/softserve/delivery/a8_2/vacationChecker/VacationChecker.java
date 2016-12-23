@@ -9,5 +9,9 @@ package main.java.com.softserve.delivery.a8_2.vacationChecker;
  */
 
 public interface VacationChecker {
+	
+	boolean areVacationsOverlapped(Vacation firstVacation, Vacation secondVacation);
+	
+	void showCheckResultToConsole();
 
 }

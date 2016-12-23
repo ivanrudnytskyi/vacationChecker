@@ -1,5 +1,8 @@
 package main.java.com.softserve.delivery.a8_2.vacationChecker.impl;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import main.java.com.softserve.delivery.a8_2.vacationChecker.Vacation;
 import main.java.com.softserve.delivery.a8_2.vacationChecker.VacationChecker;
 import main.java.com.softserve.delivery.a8_2.vacationChecker.VacationHandler;
@@ -17,28 +20,8 @@ import main.java.com.softserve.delivery.a8_2.vacationChecker.VacationHandler;
 
 public class VacationOverlapChecker implements VacationChecker {
 
-	/**
-	 * Main method
-	 * <p>
-	 * @param args
-	 *            - the first parameter is used for showing the result of the
-	 *            check to the console. "yes" or "y" must be entered in the
-	 *            command line as the first argument.
-	 */
-
-	public static void main(String[] args) {
-
-		ConsoleReader reader = new ConsoleReader();
-
-		VacationHandler.setVacations(reader.readDates());
-
-		if (args.length > 0
-				&& (args[0].toLowerCase().equals("y") || args[0].toLowerCase()
-						.equals("yes"))) {
-			showCheckResult();
-		}
-	}
-
+	private final Logger logger = LoggerFactory.getLogger(VacationOverlapChecker.class);
+	
 	/**
 	 * 
 	 * Checks if the two vacations overlap.
@@ -46,10 +29,18 @@ public class VacationOverlapChecker implements VacationChecker {
 	 * @param firstVacation
 	 * @param secondVacation
 	 * 
+	 * @throws IllegalArgumentException if either (or both) @param is null
+	 * 
 	 * @return - result of the comparison
 	 */
 
-	public static boolean areVacationsOverlapped(Vacation firstVacation, Vacation secondVacation) {
+	@Override
+	public boolean areVacationsOverlapped(Vacation firstVacation, Vacation secondVacation) {
+		
+		if (firstVacation == null || secondVacation == null){
+			logger.error("Null in parameter(s) " + firstVacation + " " + secondVacation);
+			throw new IllegalArgumentException("Parameter(s) must NOT be null");
+		}
 
 		if (firstVacation.getStartDate().before(secondVacation.getStartDate())) {
 			return firstVacation.getEndDate().after(secondVacation.getStartDate());
@@ -61,8 +52,8 @@ public class VacationOverlapChecker implements VacationChecker {
 	/**
 	 * Shows the result of the comparison on the console.
 	 */
-
-	public static void showCheckResult() {
+	@Override
+	public void showCheckResultToConsole() {
 
 		for (int i = 0; i < VacationHandler.getVacations().size() - 1; i++) {
 			if (areVacationsOverlapped(VacationHandler.getVacations().get(i),
