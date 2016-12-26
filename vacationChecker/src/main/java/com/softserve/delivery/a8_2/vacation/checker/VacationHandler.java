@@ -1,4 +1,4 @@
-package main.java.com.softserve.delivery.a8_2.vacationChecker;
+package main.java.com.softserve.delivery.a8_2.vacation.checker;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -15,7 +15,9 @@ import java.util.List;
 
 public final class VacationHandler {
 	
-	private VacationHandler(){}
+	private VacationHandler(){
+	    
+	}
 
 	private static List<Vacation> vacations;
 

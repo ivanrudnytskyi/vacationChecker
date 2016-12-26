@@ -1,16 +1,16 @@
-package test.java;
+package test.java.com.softserve.delivery.a8_2.vacation.checker;
 
 import static org.junit.Assert.assertTrue;
-import static test.java.ServiceTest.DATES_SIZE;
-import static test.java.ServiceTest.FIRST_VACATION_START_DATE;
-import static test.java.ServiceTest.VACATIONS_SIZE;
-import static test.java.ServiceTest.parseDate;
+import static test.java.com.softserve.delivery.a8_2.vacation.checker.ServiceTest.DATES_SIZE;
+import static test.java.com.softserve.delivery.a8_2.vacation.checker.ServiceTest.FIRST_VACATION_START_DATE;
+import static test.java.com.softserve.delivery.a8_2.vacation.checker.ServiceTest.VACATIONS_SIZE;
+import static test.java.com.softserve.delivery.a8_2.vacation.checker.ServiceTest.parseDate;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import main.java.com.softserve.delivery.a8_2.vacationChecker.VacationHandler;
+import main.java.com.softserve.delivery.a8_2.vacation.checker.VacationHandler;
 
 import org.junit.BeforeClass;
 import org.junit.Test;

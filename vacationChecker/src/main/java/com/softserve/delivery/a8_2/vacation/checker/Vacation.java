@@ -1,4 +1,4 @@
-package main.java.com.softserve.delivery.a8_2.vacationChecker;
+package main.java.com.softserve.delivery.a8_2.vacation.checker;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

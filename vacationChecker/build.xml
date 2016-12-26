@@ -2,23 +2,56 @@
 <project name="vacationChecker" basedir="." default="jar">
 	
 	<property name="src.dir"	     		value="src/main/java"/>
-	<property name="config.dir"	     		value="src/config"/>
-	<property name="target.dir"  	 		value="target"/>
-	<property name="main-class"  			value="main.java.com.softserve.delivery.a8_2.vacationChecker.Main"/>
 	<property name="lib.dir"     			value="src/main/resources"/>
-	<property name="testlib.dir"     		value="src/test/resources"/>
 	<property name="test.dir"				value="src/test/java"/>
-	<property name="test.reports.dir"		value="${target.dir}/reports/tests"/>
+	<property name="testlib.dir"     		value="src/test/resources"/>
+	<property name="target.dir"  	 		value="target"/>
+	<property name="test.reports.dir"		value="${target.dir}/surefire-reports"/>
+	<property name="test.reports.summary"	value="${test.reports.dir}/summary"/>
+	<property name="main-class"  			value="main.java.com.softserve.delivery.a8_2.vacation.checker.Main"/>
+	
+	<property name="sonar.host.url" value="http://localhost:9000" />
+	<property name="sonar.jdbc.url" value="jdbc:mysql://localhost:3306/sonar?useUnicode=true&amp;characterEncoding=utf8" />  
+    <property name="sonar.jdbc.driverClassName" value="com.mysql.jdbc.Driver" />
+    <property name="sonar.jdbc.username" value="sonar" />
+    <property name="sonar.jdbc.password" value="sonar" />
+	<property name="sonar.projectKey" value="main.java.com.softserve.delivery.a8_2.vacation.checker" />
+	<property name="sonar.projectName" value="VacationChecker Java Project analyzed with the SonarQube Ant Task" />
+	<property name="sonar.projectVersion" value="1.0" />
+	<property name="sonar.language" value="java" />	
+	<property name="sonar.java.source" value="1.6" />	
+	<property name="sonar.sourceEncoding" value="UTF-8" />	
+	<property name="sonar.sources" value="${src.dir}" />
+	<property name="sonar.java.binaries" value="${target.dir}" />
+	<property name="sonar.java.libraries" value="${lib.dir}/*.jar" />
+	<property name="sonar.tests" value="${test.dir}" />
+	<property name="sonar.java.test.binaries" value="${target.dir}/test" />
+	<property name="sonar.java.test.libraries" value="${testlib.dir}/*.jar" />
+	<property name="sonar.junit.reportsPath" value="${test.reports.dir}" />
+	<property name="sonar.java.coveragePlugin" value="jacoco" />	
+	<property name="sonar.jacoco.reportPaths" value="${test.reports.dir}/jacoco.exec" />
 		
+	<property file="ant.properties" />
+
 	<path id="classpath">
 		<fileset dir="${lib.dir}" includes="**/*.jar" />
 	</path>
 	
-	<path id="test.classpath">
-		<fileset dir="${lib.dir}" includes="**/*.jar" />
+	<path id="test.classpath">		
 		<fileset dir="${testlib.dir}" includes="**/*.jar" />
         <pathelement path="${target.dir}"/>
-	</path>
+	</path>	
+
+	<target name="sonar" depends="junitReport">
+	
+		<taskdef uri="antlib:org.sonar.ant" resource="org/sonar/ant/antlib.xml">
+		</taskdef>
+		
+		<sonar:sonar xmlns:sonar="antlib:org.sonar.ant"/>		
+	</target>
+	
+	<taskdef uri="antlib:org.jacoco.ant" resource="org/jacoco/ant/antlib.xml">
+	</taskdef>
 	
 	<target name="clean"
         description="remove previous files">
@@ -35,24 +68,37 @@
         description="compile test source code to class files">	
 		<javac srcdir="${test.dir}"  destdir="./${target.dir}" classpathref="test.classpath" includeantruntime="false"/> 		
 	</target>
-			
-	<target name="unitTest" depends="compileTest">
+	
+	
+	<target name="junit" depends="compileTest" unless="skipTests">
         <mkdir dir="${test.reports.dir}"/>
-        <junit printsummary="yes">
-            <classpath refid="test.classpath"/>
-			
-            <formatter type="plain"/>
-			<formatter type="xml"/>
-            
-            <batchtest fork="yes" todir="${test.reports.dir}">
-                <fileset dir="${target.dir}">
-					<include name="**/Test*.class"/>
-				</fileset>
-            </batchtest>
-        </junit>
+		<jacoco:coverage destfile="${test.reports.dir}/jacoco.exec" xmlns:jacoco="antlib:org.jacoco.ant">	
+			<junit fork="true" printsummary="yes">
+				<classpath refid="classpath"/>
+				<classpath refid="test.classpath"/>
+				
+				<formatter type="plain"/>
+				<formatter type="xml"/>
+				
+				<batchtest fork="yes" todir="${test.reports.dir}">
+					<fileset dir="${target.dir}">
+						<include name="**/Test*.class"/>
+					</fileset>
+				</batchtest>
+			</junit>
+		</jacoco:coverage>	
     </target>
 	
-	<target name="jar" depends="unitTest"
+	
+	<target name="junitReport" depends="junit" unless="skipTests">
+	<mkdir dir="${test.reports.summary}"/>
+        <junitreport todir="${test.reports.summary}">
+            <fileset dir="${test.reports.dir}" includes="TEST-*.xml"/>
+            <report todir="${test.reports.summary}"/>
+        </junitreport>
+    </target>
+	
+	<target name="jar" depends="sonar"
         description="create a Jar file for the application">
 		<jar destfile="./${target.dir}/vacationChecker.jar">
 			<fileset dir="./${target.dir}" includes="**/*.class"/>

@@ -1,11 +1,11 @@
-package main.java.com.softserve.delivery.a8_2.vacationChecker.impl;
+package main.java.com.softserve.delivery.a8_2.vacation.checker.impl;
+
+import main.java.com.softserve.delivery.a8_2.vacation.checker.Vacation;
+import main.java.com.softserve.delivery.a8_2.vacation.checker.VacationChecker;
+import main.java.com.softserve.delivery.a8_2.vacation.checker.VacationHandler;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import main.java.com.softserve.delivery.a8_2.vacationChecker.Vacation;
-import main.java.com.softserve.delivery.a8_2.vacationChecker.VacationChecker;
-import main.java.com.softserve.delivery.a8_2.vacationChecker.VacationHandler;
 
 /**
  * 
@@ -20,7 +20,7 @@ import main.java.com.softserve.delivery.a8_2.vacationChecker.VacationHandler;
 
 public class VacationOverlapCheckerImpl implements VacationChecker {
 
-	private final Logger logger = LoggerFactory.getLogger(VacationOverlapCheckerImpl.class);
+	private final static Logger LOGGER = LoggerFactory.getLogger(VacationOverlapCheckerImpl.class);
 	
 	/**
 	 * 
@@ -38,12 +38,12 @@ public class VacationOverlapCheckerImpl implements VacationChecker {
 	public boolean areVacationsOverlapped(Vacation firstVacation, Vacation secondVacation) {
 		
 		if (firstVacation == null){
-			logger.error("Null parameter " + firstVacation);
+			LOGGER.error("Null parameter " + firstVacation);
 			throw new IllegalArgumentException("Parameter firstVacation must NOT be null");
 		}
 		
 		if (secondVacation == null){
-			logger.error("Null parameter " + secondVacation);
+			LOGGER.error("Null parameter " + secondVacation);
 			throw new IllegalArgumentException("Parameter secondVacation must NOT be null");
 		}
 

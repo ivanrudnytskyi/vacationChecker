@@ -1,11 +1,11 @@
-package test.java;
+package test.java.com.softserve.delivery.a8_2.vacation.checker;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import main.java.com.softserve.delivery.a8_2.vacationChecker.Vacation;
-import main.java.com.softserve.delivery.a8_2.vacationChecker.VacationReader;
+import main.java.com.softserve.delivery.a8_2.vacation.checker.Vacation;
+import main.java.com.softserve.delivery.a8_2.vacation.checker.VacationReader;
 
 /**
  * 

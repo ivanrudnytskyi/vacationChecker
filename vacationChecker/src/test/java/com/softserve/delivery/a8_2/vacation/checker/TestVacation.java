@@ -1,10 +1,12 @@
-package test.java;
+package test.java.com.softserve.delivery.a8_2.vacation.checker;
 
-import static org.junit.Assert.*;
-import static test.java.ServiceTest.FIRST_VACATION_END_DATE;
-import static test.java.ServiceTest.FIRST_VACATION_START_DATE;
-import static test.java.ServiceTest.getVacation;
-import main.java.com.softserve.delivery.a8_2.vacationChecker.Vacation;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static test.java.com.softserve.delivery.a8_2.vacation.checker.ServiceTest.FIRST_VACATION_END_DATE;
+import static test.java.com.softserve.delivery.a8_2.vacation.checker.ServiceTest.FIRST_VACATION_START_DATE;
+import static test.java.com.softserve.delivery.a8_2.vacation.checker.ServiceTest.getVacation;
+import main.java.com.softserve.delivery.a8_2.vacation.checker.Vacation;
 
 import org.junit.Test;
 

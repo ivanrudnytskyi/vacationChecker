@@ -1,9 +1,10 @@
-package test.java;
+package test.java.com.softserve.delivery.a8_2.vacation.checker;
 
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.*;
-import static test.java.ServiceTest.DATES;
-import static test.java.ServiceTest.DATES_SIZE;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.when;
+import static test.java.com.softserve.delivery.a8_2.vacation.checker.ServiceTest.DATES;
+import static test.java.com.softserve.delivery.a8_2.vacation.checker.ServiceTest.DATES_SIZE;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
@@ -11,7 +12,7 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
-import main.java.com.softserve.delivery.a8_2.vacationChecker.impl.ConsoleReaderImpl;
+import main.java.com.softserve.delivery.a8_2.vacation.checker.impl.ConsoleReaderImpl;
 
 import org.junit.After;
 import org.junit.Before;
@@ -46,7 +47,7 @@ public class TestConsoleReader {
 		assertTrue(dates.size() == DATES_SIZE);
 	}
 
-	@Test(expected = RuntimeException.class)
+	@Test
 	public void testReadDatesWithReadIOException() throws IOException{
 
 		ByteArrayInputStream in = new ByteArrayInputStream(DATES.getBytes());
@@ -60,7 +61,7 @@ public class TestConsoleReader {
 		reader.readDates();
 	}
 	
-	@Test(expected = RuntimeException.class)
+	@Test(expected = NullPointerException.class)
 	public void testReadDatesWithCloseIOException() throws IOException{
 
 		ByteArrayInputStream in = new ByteArrayInputStream(DATES.getBytes());
