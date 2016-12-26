@@ -14,6 +14,8 @@ import java.util.List;
 public interface VacationReader {
 
 	String DATE_FORMAT = "yyyy-MM-dd";
+	String SHOW_RESULTS_TO_CONSOLE_SHORT = "y";
+	String SHOW_RESULTS_TO_CONSOLE_FULL = "yes";
 	
 	List<Date> readDates();
 	

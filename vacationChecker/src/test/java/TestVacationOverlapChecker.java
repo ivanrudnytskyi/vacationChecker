@@ -21,7 +21,7 @@ import main.java.com.softserve.delivery.a8_2.vacationChecker.Main;
 import main.java.com.softserve.delivery.a8_2.vacationChecker.Vacation;
 import main.java.com.softserve.delivery.a8_2.vacationChecker.VacationChecker;
 import main.java.com.softserve.delivery.a8_2.vacationChecker.VacationHandler;
-import main.java.com.softserve.delivery.a8_2.vacationChecker.impl.VacationOverlapChecker;
+import main.java.com.softserve.delivery.a8_2.vacationChecker.impl.VacationOverlapCheckerImpl;
 
 import org.junit.After;
 import org.junit.Before;
@@ -31,7 +31,7 @@ public class TestVacationOverlapChecker {
 
 	private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
 	private final List<Date> dates = new ArrayList<Date>();
-	private final VacationChecker vacationChecker = new VacationOverlapChecker();
+	private final VacationChecker vacationChecker = new VacationOverlapCheckerImpl();
 
 
 	@Before
@@ -129,9 +129,18 @@ public class TestVacationOverlapChecker {
 	}
 	
 	@Test (expected = IllegalArgumentException.class)
-	public void testAreVacationsOverLappedBothNulls() {
-		vacationChecker.areVacationsOverlapped(null, null);
-	}
+	public void testAreVacationsOverLappedFirstNull() {
+		Vacation vacation = getVacation(FIRST_VACATION_START_DATE,
+				FIRST_VACATION_END_DATE);
+		vacationChecker.areVacationsOverlapped(null, vacation);
+	}	
+	
+	@Test (expected = IllegalArgumentException.class)
+	public void testAreVacationsOverLappedSecondNull() {
+		Vacation vacation = getVacation(FIRST_VACATION_START_DATE,
+				FIRST_VACATION_END_DATE);
+		vacationChecker.areVacationsOverlapped(vacation, null);
+	}	
 
 	@Test
 	public void testshowCheckResultNoOverlap() {

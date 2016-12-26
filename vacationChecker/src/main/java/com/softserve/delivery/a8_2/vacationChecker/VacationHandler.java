@@ -24,8 +24,8 @@ public final class VacationHandler {
 	 * 
 	 * @param dates
 	 *            - List with dates for the vacations in order
-	 *            Vacation0.startDate, Vacation0.endDate, Vacation1.startDate,
-	 *            Vacation1.endDate.
+	 *            firstVacation.startDate, firstVacation.endDate, secondVacation.startDate,
+	 *            secondVacation.endDate.
 	 */
 
 	public static void setVacations(List<Date> dates) {

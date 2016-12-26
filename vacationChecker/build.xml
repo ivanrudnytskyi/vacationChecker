@@ -56,12 +56,12 @@
         description="create a Jar file for the application">
 		<jar destfile="./${target.dir}/vacationChecker.jar">
 			<fileset dir="./${target.dir}" includes="**/*.class"/>
-			<fileset dir="./${config.dir}" includes="**/*.properties" />
 			<manifest>
 				<attribute name="Class-Path" value="." />
 				<attribute name="Main-Class" value="${main-class}"/>				
 			</manifest> 
 			<zipgroupfileset excludes="META-INF/*.SF" dir="${lib.dir}" includes="*.jar"/>
+			<fileset dir="./${lib.dir}" includes="**/*.properties" />
 		</jar> 
 	</target>
 </project>

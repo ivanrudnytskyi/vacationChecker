@@ -18,9 +18,9 @@ import main.java.com.softserve.delivery.a8_2.vacationChecker.VacationHandler;
  *          start/end date for each vacation in a succession.
  */
 
-public class VacationOverlapChecker implements VacationChecker {
+public class VacationOverlapCheckerImpl implements VacationChecker {
 
-	private final Logger logger = LoggerFactory.getLogger(VacationOverlapChecker.class);
+	private final Logger logger = LoggerFactory.getLogger(VacationOverlapCheckerImpl.class);
 	
 	/**
 	 * 
@@ -37,9 +37,14 @@ public class VacationOverlapChecker implements VacationChecker {
 	@Override
 	public boolean areVacationsOverlapped(Vacation firstVacation, Vacation secondVacation) {
 		
-		if (firstVacation == null || secondVacation == null){
-			logger.error("Null in parameter(s) " + firstVacation + " " + secondVacation);
-			throw new IllegalArgumentException("Parameter(s) must NOT be null");
+		if (firstVacation == null){
+			logger.error("Null parameter " + firstVacation);
+			throw new IllegalArgumentException("Parameter firstVacation must NOT be null");
+		}
+		
+		if (secondVacation == null){
+			logger.error("Null parameter " + secondVacation);
+			throw new IllegalArgumentException("Parameter secondVacation must NOT be null");
 		}
 
 		if (firstVacation.getStartDate().before(secondVacation.getStartDate())) {

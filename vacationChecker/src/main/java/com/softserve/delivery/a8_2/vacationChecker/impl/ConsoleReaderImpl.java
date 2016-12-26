@@ -25,13 +25,14 @@ import main.java.com.softserve.delivery.a8_2.vacationChecker.VacationReader;
  * 
  */
 
-public class ConsoleReader implements VacationReader {
+public class ConsoleReaderImpl implements VacationReader {
 
 	private final int VACATIONS_NUMBER = 2;
 	private final int DATES_NUMBER = VACATIONS_NUMBER * 2;
 	private final String EXIT = "q";
 
-	private final Logger logger = LoggerFactory.getLogger(ConsoleReader.class);
+	private final Logger logger = LoggerFactory
+			.getLogger(ConsoleReaderImpl.class);
 
 	private BufferedReader br;
 
@@ -42,7 +43,17 @@ public class ConsoleReader implements VacationReader {
 		return formatter.parse(stringDate);
 	}
 
+	public ConsoleReaderImpl() {
+	}
+
+	public ConsoleReaderImpl(BufferedReader reader) {
+		this.br = reader;
+	}
+
 	/**
+	 * @throws RuntimeException
+	 *             with appropriate message when unable to read from console or
+	 *             close input stream
 	 * 
 	 * @return - List<Date> dates, entered from the console.
 	 *         <p>
@@ -61,13 +72,17 @@ public class ConsoleReader implements VacationReader {
 
 		try {
 
-			br = new BufferedReader(new InputStreamReader(System.in));
+			if (br == null) {
+				br = new BufferedReader(new InputStreamReader(System.in));
+			}
 
 			String input;
 
 			System.out
 					.println("Enter four dates - the beginning and the end of the two vacations in the format "
-							+ DATE_FORMAT + " (only numbers). To exit enter q.");
+							+ DATE_FORMAT
+							+ " (only numbers). To exit enter "
+							+ EXIT + ".");
 
 			do {
 				input = br.readLine();
@@ -86,6 +101,7 @@ public class ConsoleReader implements VacationReader {
 		} catch (IOException e) {
 			logger.error("ConsoleReader.readDates() exception while trying to read console input "
 					+ e.getMessage());
+			throw new RuntimeException("Unable to read console input");
 		} finally {
 			if (br != null) {
 				try {
@@ -93,9 +109,12 @@ public class ConsoleReader implements VacationReader {
 				} catch (IOException e) {
 					logger.error("ConsoleReader.readDates() exception while trying to close console input stream "
 							+ e.getMessage());
+					throw new RuntimeException(
+							"Unable to close console input stream");
 				}
 			}
 		}
 		return dates;
 	}
+
 }
