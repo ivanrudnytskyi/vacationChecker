@@ -1,11 +1,10 @@
-package test.java.com.softserve.delivery.a8_2.vacation.checker;
+package test.java.com.softserve.delivery.a82.vacation.checker;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import main.java.com.softserve.delivery.a8_2.vacation.checker.Vacation;
-import main.java.com.softserve.delivery.a8_2.vacation.checker.VacationReader;
+import main.java.com.softserve.delivery.a82.vacation.checker.Vacation;
 
 /**
  * 
@@ -16,11 +15,12 @@ import main.java.com.softserve.delivery.a8_2.vacation.checker.VacationReader;
  *          Service class for test classes
  */
 
-public class ServiceTest {
+public final class ServiceTest {
 
 	final static String DATES = "2016-01-01\n2016-01-02\n2016-01-03\n2016-01-04\n";
 	final static int DATES_SIZE = 4;
 	final static int VACATIONS_SIZE = 2;
+	static final String DATE_FORMAT = "yyyy-MM-dd";
 
 	final static String FIRST_VACATION_START_DATE = "2016-01-01";
 	final static String FIRST_VACATION_END_DATE = "2016-01-10";
@@ -31,7 +31,7 @@ public class ServiceTest {
 	static Date parseDate(String date) {
 
 		try {
-			return new SimpleDateFormat(VacationReader.DATE_FORMAT).parse(date);
+			return new SimpleDateFormat(DATE_FORMAT).parse(date);
 		} catch (ParseException e) {
 			return null;
 		}
@@ -43,6 +43,9 @@ public class ServiceTest {
 		vacation.setEndDate(parseDate(enddate));
 
 		return vacation;
+	}
+	
+	private ServiceTest(){
 	}
 
 }

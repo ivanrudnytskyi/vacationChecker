@@ -1,4 +1,4 @@
-package main.java.com.softserve.delivery.a8_2.vacation.checker.impl;
+package main.java.com.softserve.delivery.a82.vacation.checker.impl;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import main.java.com.softserve.delivery.a8_2.vacation.checker.VacationReader;
+import main.java.com.softserve.delivery.a82.vacation.checker.VacationReader;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,26 +27,39 @@ import org.slf4j.LoggerFactory;
 
 public class ConsoleReaderImpl implements VacationReader {
 
-    private final static int VACATIONS_NUMBER = 2;
-    private final static int DATES_NUMBER = VACATIONS_NUMBER * 2;
-    private final static String EXIT = "q";
-    private final static Logger LOGGER = LoggerFactory
+    private static final int VACATIONS_NUMBER = 2;
+    private static final int DATES_NUMBER = VACATIONS_NUMBER * 2;
+    private static final String EXIT = "q";
+    private static final Logger LOGGER = LoggerFactory
             .getLogger(ConsoleReaderImpl.class);
+    private static final String DATE_FORMAT = "yyyy-MM-dd";
+    private static final SimpleDateFormat FORMATTER = new SimpleDateFormat(
+            DATE_FORMAT);
 
     private BufferedReader br;
-
-    private Date parseDate(String stringDate) throws ParseException {
-        SimpleDateFormat formatter = new SimpleDateFormat(
-                VacationReader.DATE_FORMAT);
-        formatter.setLenient(false);
-        return formatter.parse(stringDate);
-    }
 
     public ConsoleReaderImpl() {
     }
 
     public ConsoleReaderImpl(BufferedReader reader) {
         this.br = reader;
+    }
+
+    private Date parseDate(String input) {
+
+        FORMATTER.setLenient(false);
+
+        if (input != null) {
+            try {
+                return FORMATTER.parse(input);
+            } catch (ParseException e) {
+                System.out
+                        .println("You have entered the wrong value. Try again.");
+                LOGGER.error("ConsoleReader.parseDate() " + e);
+            }
+        }
+
+        return null;
     }
 
     /**
@@ -64,8 +77,6 @@ public class ConsoleReaderImpl implements VacationReader {
 
     @Override
     public List<Date> readDates() {
-
-        LOGGER.debug("ConsoleReader.readDates()");
 
         List<Date> dates = new ArrayList<Date>();
 
@@ -86,14 +97,10 @@ public class ConsoleReaderImpl implements VacationReader {
             do {
                 input = br.readLine();
 
-                try {
+                if (!input.equalsIgnoreCase(EXIT) && parseDate(input) != null) {
                     dates.add(parseDate(input));
-                } catch (ParseException e) {
-                    if (!input.equalsIgnoreCase(EXIT)) {
-                        System.out
-                                .println("You have entered the wrong value. Try again.");
-                    }
                 }
+
             } while (dates.size() < DATES_NUMBER
                     && !input.equalsIgnoreCase(EXIT));
 
@@ -112,5 +119,4 @@ public class ConsoleReaderImpl implements VacationReader {
         }
         return dates;
     }
-
 }

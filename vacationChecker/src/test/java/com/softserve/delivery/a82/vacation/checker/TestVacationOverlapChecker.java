@@ -1,14 +1,14 @@
-package test.java.com.softserve.delivery.a8_2.vacation.checker;
+package test.java.com.softserve.delivery.a82.vacation.checker;
 
 import static org.junit.Assert.*;
-import static test.java.com.softserve.delivery.a8_2.vacation.checker.ServiceTest.DATES;
-import static test.java.com.softserve.delivery.a8_2.vacation.checker.ServiceTest.FIRST_VACATION_END_DATE;
-import static test.java.com.softserve.delivery.a8_2.vacation.checker.ServiceTest.FIRST_VACATION_START_DATE;
-import static test.java.com.softserve.delivery.a8_2.vacation.checker.ServiceTest.SECOND_VACATION_END_DATE;
-import static test.java.com.softserve.delivery.a8_2.vacation.checker.ServiceTest.SECOND_VACATION_START_DATE_NO_OVERLAP;
-import static test.java.com.softserve.delivery.a8_2.vacation.checker.ServiceTest.SECOND_VACATION_START_DATE_OVERLAP;
-import static test.java.com.softserve.delivery.a8_2.vacation.checker.ServiceTest.parseDate;
-import static test.java.com.softserve.delivery.a8_2.vacation.checker.ServiceTest.getVacation;
+import static test.java.com.softserve.delivery.a82.vacation.checker.ServiceTest.DATES;
+import static test.java.com.softserve.delivery.a82.vacation.checker.ServiceTest.FIRST_VACATION_END_DATE;
+import static test.java.com.softserve.delivery.a82.vacation.checker.ServiceTest.FIRST_VACATION_START_DATE;
+import static test.java.com.softserve.delivery.a82.vacation.checker.ServiceTest.SECOND_VACATION_END_DATE;
+import static test.java.com.softserve.delivery.a82.vacation.checker.ServiceTest.SECOND_VACATION_START_DATE_NO_OVERLAP;
+import static test.java.com.softserve.delivery.a82.vacation.checker.ServiceTest.SECOND_VACATION_START_DATE_OVERLAP;
+import static test.java.com.softserve.delivery.a82.vacation.checker.ServiceTest.parseDate;
+import static test.java.com.softserve.delivery.a82.vacation.checker.ServiceTest.getVacation;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -17,11 +17,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import main.java.com.softserve.delivery.a8_2.vacation.checker.Main;
-import main.java.com.softserve.delivery.a8_2.vacation.checker.Vacation;
-import main.java.com.softserve.delivery.a8_2.vacation.checker.VacationChecker;
-import main.java.com.softserve.delivery.a8_2.vacation.checker.VacationHandler;
-import main.java.com.softserve.delivery.a8_2.vacation.checker.impl.VacationOverlapCheckerImpl;
+import main.java.com.softserve.delivery.a82.vacation.checker.Main;
+import main.java.com.softserve.delivery.a82.vacation.checker.Vacation;
+import main.java.com.softserve.delivery.a82.vacation.checker.VacationChecker;
+import main.java.com.softserve.delivery.a82.vacation.checker.VacationHandler;
+import main.java.com.softserve.delivery.a82.vacation.checker.impl.VacationOverlapCheckerImpl;
 
 import org.junit.After;
 import org.junit.Before;
