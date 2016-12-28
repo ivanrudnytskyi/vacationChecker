@@ -1,8 +1,8 @@
-package main.java.com.softserve.delivery.a82.vacation.checker.impl;
+package com.softserve.delivery.a82.vacation.checker.impl;
 
-import main.java.com.softserve.delivery.a82.vacation.checker.Vacation;
-import main.java.com.softserve.delivery.a82.vacation.checker.VacationChecker;
-import main.java.com.softserve.delivery.a82.vacation.checker.VacationHandler;
+import com.softserve.delivery.a82.vacation.checker.Vacation;
+import com.softserve.delivery.a82.vacation.checker.VacationChecker;
+import com.softserve.delivery.a82.vacation.checker.VacationHandler;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -66,16 +66,19 @@ public class VacationOverlapCheckerImpl implements VacationChecker {
     @Override
     public void showCheckResultToConsole() {
 
-        for (int i = 0; i < VacationHandler.getVacations().size() - 1; i++) {
-            if (areVacationsOverlapped(VacationHandler.getVacations().get(i),
-                    VacationHandler.getVacations().get(i + 1))) {
-                System.out.println("Overlap "
-                        + VacationHandler.getVacations().get(i) + " and "
-                        + VacationHandler.getVacations().get(i + 1));
-            } else {
-                System.out.println("No overlap for "
-                        + VacationHandler.getVacations().get(i) + " and "
-                        + VacationHandler.getVacations().get(i + 1));
+        if (VacationHandler.getVacations() != null) {
+
+            for (int i = 0; i < VacationHandler.getVacations().size() - 1; i++) {
+                if (areVacationsOverlapped(VacationHandler.getVacations()
+                        .get(i), VacationHandler.getVacations().get(i + 1))) {
+                    System.out.println("Overlap "
+                            + VacationHandler.getVacations().get(i) + " and "
+                            + VacationHandler.getVacations().get(i + 1));
+                } else {
+                    System.out.println("No overlap for "
+                            + VacationHandler.getVacations().get(i) + " and "
+                            + VacationHandler.getVacations().get(i + 1));
+                }
             }
         }
     }

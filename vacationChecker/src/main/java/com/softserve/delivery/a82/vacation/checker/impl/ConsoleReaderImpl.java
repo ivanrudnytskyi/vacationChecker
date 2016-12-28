@@ -1,4 +1,4 @@
-package main.java.com.softserve.delivery.a82.vacation.checker.impl;
+package com.softserve.delivery.a82.vacation.checker.impl;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -6,10 +6,11 @@ import java.io.InputStreamReader;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
-import main.java.com.softserve.delivery.a82.vacation.checker.VacationReader;
+import com.softserve.delivery.a82.vacation.checker.VacationReader;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -75,24 +76,25 @@ public class ConsoleReaderImpl implements VacationReader {
      *         month etc) - it is the responsibility of the user.
      */
 
+    @SuppressWarnings("unchecked")
     @Override
     public List<Date> readDates() {
-
+        
         List<Date> dates = new ArrayList<Date>();
 
         try {
 
             if (br == null) {
                 br = new BufferedReader(new InputStreamReader(System.in));
-            }
-
-            String input;
+            }            
 
             System.out
                     .println("Enter four dates - the beginning and the end of the two vacations in the format "
                             + DATE_FORMAT
                             + " (only numbers). To exit enter "
                             + EXIT + ".");
+            
+            String input = null;
 
             do {
                 input = br.readLine();
@@ -117,6 +119,7 @@ public class ConsoleReaderImpl implements VacationReader {
                 }
             }
         }
-        return dates;
+        
+        return (List<Date>) ((dates.size() < DATES_NUMBER)? Collections.emptyList(): dates);
     }
 }

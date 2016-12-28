@@ -8,7 +8,7 @@
 	<property name="target.dir" value="target" />
 	<property name="test.reports.dir" value="${target.dir}/surefire-reports" />
 	<property name="test.reports.summary" value="${test.reports.dir}/summary" />
-	<property name="main-class" value="main.java.com.softserve.delivery.a82.vacation.checker.Main" />
+	<property name="main-class" value="com.softserve.delivery.a82.vacation.checker.Main" />
 
 	<property name="sonar.host.url" value="http://localhost:9000" />
 	<property name="sonar.jdbc.url" value="jdbc:h2:tcp://localhost:9092/sonar" />

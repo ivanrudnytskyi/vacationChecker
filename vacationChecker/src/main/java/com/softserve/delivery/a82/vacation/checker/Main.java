@@ -1,7 +1,7 @@
-package main.java.com.softserve.delivery.a82.vacation.checker;
+package com.softserve.delivery.a82.vacation.checker;
 
-import main.java.com.softserve.delivery.a82.vacation.checker.impl.ConsoleReaderImpl;
-import main.java.com.softserve.delivery.a82.vacation.checker.impl.VacationOverlapCheckerImpl;
+import com.softserve.delivery.a82.vacation.checker.impl.ConsoleReaderImpl;
+import com.softserve.delivery.a82.vacation.checker.impl.VacationOverlapCheckerImpl;
 
 /**
  * Main method

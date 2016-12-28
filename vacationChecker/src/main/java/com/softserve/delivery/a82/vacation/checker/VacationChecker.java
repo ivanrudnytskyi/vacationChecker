@@ -1,4 +1,4 @@
-package main.java.com.softserve.delivery.a82.vacation.checker;
+package com.softserve.delivery.a82.vacation.checker;
 
 /**
  * 

@@ -1,10 +1,10 @@
-package test.java.com.softserve.delivery.a82.vacation.checker;
+package com.softserve.delivery.a82.vacation.checker;
 
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
-import static test.java.com.softserve.delivery.a82.vacation.checker.ServiceTest.DATES;
-import static test.java.com.softserve.delivery.a82.vacation.checker.ServiceTest.DATES_SIZE;
+import static com.softserve.delivery.a82.vacation.checker.ServiceTest.DATES;
+import static com.softserve.delivery.a82.vacation.checker.ServiceTest.DATES_SIZE;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
-import main.java.com.softserve.delivery.a82.vacation.checker.impl.ConsoleReaderImpl;
+import com.softserve.delivery.a82.vacation.checker.impl.ConsoleReaderImpl;
 
 import org.junit.After;
 import org.junit.Before;

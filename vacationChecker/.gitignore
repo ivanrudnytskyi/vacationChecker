@@ -22,13 +22,13 @@ hs_err_pid*
 /bin/
 
 /.externalToolBuilders/
-/**/.settings/
+#/**/.settings/
 /**/target/
 /**/doc/
 /**/test-output/
 /**/report/
-/**/.classpath
-/**/.project
+#/**/.classpath
+#/**/.project
 /**/.checkstyle
 /**/reports
 /**/af.reporting
@@ -38,7 +38,6 @@ hs_err_pid*
 # ignore log
 *.log
 
-# ignore log
 *.bmp
 
 # ignore doc/notes.txt, but not doc/info/arch.txt
