@@ -10,7 +10,8 @@ import com.softserve.delivery.a82.vacation.checker.impl.VacationOverlapCheckerIm
  * @param args
  *            - the first parameter is used for showing the result of the check
  *            to the console. "yes" or "y" must be entered in the command line
- *            as the first argument.
+ *            as the first argument if a user wants to get the result on the
+ *            screen.
  */
 
 public final class Main {

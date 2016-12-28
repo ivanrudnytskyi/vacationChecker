@@ -17,7 +17,8 @@ import com.softserve.delivery.a82.vacation.checker.Vacation;
 
 public final class ServiceTest {
 
-	final static String DATES = "2016-01-01\n2016-01-02\n2016-01-03\n2016-01-04\n";
+	final static String CORRECT_DATES = "2016-01-01\n2016-01-02\n2016-01-03\n2016-01-04\n";
+	final static String DATES_IN_INCORRECT_ORDER = "2016-01-10\n2016-01-01\n2016-01-11\n2016-01-03\n2016-01-01\n2016-01-10\n";
 	final static int DATES_SIZE = 4;
 	final static int VACATIONS_SIZE = 2;
 	static final String DATE_FORMAT = "yyyy-MM-dd";

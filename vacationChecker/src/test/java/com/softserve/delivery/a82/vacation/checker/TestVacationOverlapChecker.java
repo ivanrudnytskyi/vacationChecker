@@ -1,7 +1,7 @@
 package com.softserve.delivery.a82.vacation.checker;
 
 import static org.junit.Assert.*;
-import static com.softserve.delivery.a82.vacation.checker.ServiceTest.DATES;
+import static com.softserve.delivery.a82.vacation.checker.ServiceTest.CORRECT_DATES;
 import static com.softserve.delivery.a82.vacation.checker.ServiceTest.FIRST_VACATION_END_DATE;
 import static com.softserve.delivery.a82.vacation.checker.ServiceTest.FIRST_VACATION_START_DATE;
 import static com.softserve.delivery.a82.vacation.checker.ServiceTest.SECOND_VACATION_END_DATE;
@@ -28,6 +28,10 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class TestVacationOverlapChecker {
+    
+    private static final String SHOW_RESULTS_TO_CONSOLE_SHORT = "y";
+    private static final String SHOW_RESULTS_TO_CONSOLE_FULL = "yes";
+    private static final String SHOW_RESULTS_TO_CONSOLE_INCORRECT = "no";
 
 	private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
 	private final List<Date> dates = new ArrayList<Date>();
@@ -49,7 +53,7 @@ public class TestVacationOverlapChecker {
 
 		Exception exc = null;
 
-		ByteArrayInputStream in = new ByteArrayInputStream(DATES.getBytes());
+		ByteArrayInputStream in = new ByteArrayInputStream(CORRECT_DATES.getBytes());
 
 		System.setIn(in);
 
@@ -65,16 +69,16 @@ public class TestVacationOverlapChecker {
 	}
 	
 	@Test
-	public void testMainOneArg() {
+	public void testMainOneArgFull() {
 
 		Exception exc = null;
 
-		ByteArrayInputStream in = new ByteArrayInputStream(DATES.getBytes());
+		ByteArrayInputStream in = new ByteArrayInputStream(CORRECT_DATES.getBytes());
 
 		System.setIn(in);
 
 		try {
-			Main.main(new String[] {"yes"});
+			Main.main(new String[] {SHOW_RESULTS_TO_CONSOLE_FULL});
 		} catch (Exception e) {
 			exc = e;
 		}
@@ -83,6 +87,46 @@ public class TestVacationOverlapChecker {
 
 		assertNull(exc);
 	}
+	
+	   @Test
+	    public void testMainOneArgShort() {
+
+	        Exception exc = null;
+
+	        ByteArrayInputStream in = new ByteArrayInputStream(CORRECT_DATES.getBytes());
+
+	        System.setIn(in);
+
+	        try {
+	            Main.main(new String[] {SHOW_RESULTS_TO_CONSOLE_SHORT});
+	        } catch (Exception e) {
+	            exc = e;
+	        }
+
+	        System.setIn(System.in);
+
+	        assertNull(exc);
+	    }
+	   
+       @Test
+       public void testMainOneArgIncorrect() {
+
+           Exception exc = null;
+
+           ByteArrayInputStream in = new ByteArrayInputStream(CORRECT_DATES.getBytes());
+
+           System.setIn(in);
+
+           try {
+               Main.main(new String[] {SHOW_RESULTS_TO_CONSOLE_INCORRECT});
+           } catch (Exception e) {
+               exc = e;
+           }
+
+           System.setIn(System.in);
+
+           assertNull(exc);
+       }
 
 	@Test
 	public void testAreVacationsOverLappedExpectFalseAscending() {

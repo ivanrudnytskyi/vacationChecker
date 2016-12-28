@@ -1,19 +1,17 @@
 package com.softserve.delivery.a82.vacation.checker.impl;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
-
-import com.softserve.delivery.a82.vacation.checker.VacationReader;
+import java.util.Scanner;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.softserve.delivery.a82.vacation.checker.VacationReader;
 
 /**
  * 
@@ -37,22 +35,16 @@ public class ConsoleReaderImpl implements VacationReader {
     private static final SimpleDateFormat FORMATTER = new SimpleDateFormat(
             DATE_FORMAT);
 
-    private BufferedReader br;
-
-    public ConsoleReaderImpl() {
-    }
-
-    public ConsoleReaderImpl(BufferedReader reader) {
-        this.br = reader;
-    }
-
     private Date parseDate(String input) {
 
-        FORMATTER.setLenient(false);
-
         if (input != null) {
+
+            FORMATTER.setLenient(false);
+
             try {
+
                 return FORMATTER.parse(input);
+
             } catch (ParseException e) {
                 System.out
                         .println("You have entered the wrong value. Try again.");
@@ -63,63 +55,57 @@ public class ConsoleReaderImpl implements VacationReader {
         return null;
     }
 
+    private boolean endDateBeforeStartDate(List<Date> dates) {
+
+        int size = dates.size();
+
+        if (size > 0 && size % 2 == 0) {
+            return dates.get(size - 1).before(dates.get(size - 2));
+        }
+
+        return false;
+    }
+
     /**
-     * @throws RuntimeException
-     *             with appropriate message when unable to read from console or
-     *             close input stream
      * 
      * @return - List<Date> dates, entered from the console.
      *         <p>
-     *         The entered dates must conform to the specified format (see
-     *         interface's VacationReader constants). The entered dates are not
-     *         checked for order (start-end) or correctness (number of days in
-     *         month etc) - it is the responsibility of the user.
+     *         The entered dates must conform to the specified format - ISO 8601
+     *         (yyyy-MM-dd).
      */
 
-    @SuppressWarnings("unchecked")
     @Override
     public List<Date> readDates() {
-        
+
         List<Date> dates = new ArrayList<Date>();
+        Scanner scanner = new Scanner(System.in);
 
-        try {
+        System.out
+                .println("Enter four dates - the beginning and the end of the two vacations in the format "
+                        + DATE_FORMAT
+                        + " (only numbers). To exit enter "
+                        + EXIT + ".");
 
-            if (br == null) {
-                br = new BufferedReader(new InputStreamReader(System.in));
-            }            
+        String input = null;
 
-            System.out
-                    .println("Enter four dates - the beginning and the end of the two vacations in the format "
-                            + DATE_FORMAT
-                            + " (only numbers). To exit enter "
-                            + EXIT + ".");
-            
-            String input = null;
+        do {
+            input = scanner.nextLine();
 
-            do {
-                input = br.readLine();
+            if (!input.equalsIgnoreCase(EXIT) && parseDate(input) != null) {
 
-                if (!input.equalsIgnoreCase(EXIT) && parseDate(input) != null) {
-                    dates.add(parseDate(input));
-                }
+                dates.add(parseDate(input));
 
-            } while (dates.size() < DATES_NUMBER
-                    && !input.equalsIgnoreCase(EXIT));
-
-        } catch (IOException e) {
-            LOGGER.error("ConsoleReader.readDates() exception while trying to read console input "
-                    + e);
-        } finally {
-            if (br != null) {
-                try {
-                    br.close();
-                } catch (IOException e) {
-                    LOGGER.error("ConsoleReader.readDates() exception while trying to close console input stream "
-                            + e);
-                }
             }
-        }
-        
-        return (List<Date>) ((dates.size() < DATES_NUMBER)? Collections.emptyList(): dates);
+
+            if (endDateBeforeStartDate(dates)) {
+                dates.remove(dates.size() - 1);
+                System.out
+                        .println("The end date is before the start date. Please, enter the correct end date");
+            }
+
+        } while (dates.size() < DATES_NUMBER && !input.equalsIgnoreCase(EXIT));
+
+        return (dates.size() < DATES_NUMBER) ? Collections.<Date> emptyList()
+                : dates;
     }
 }
