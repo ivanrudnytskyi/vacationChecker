@@ -8,19 +8,15 @@
 	<property name="target.dir" value="target" />
 	<property name="test.reports.dir" value="${target.dir}/surefire-reports" />
 	<property name="test.reports.summary" value="${test.reports.dir}/summary" />
-	<property name="main-class"
-		value="main.java.com.softserve.delivery.a82.vacation.checker.Main" />
+	<property name="main-class" value="main.java.com.softserve.delivery.a82.vacation.checker.Main" />
 
 	<property name="sonar.host.url" value="http://localhost:9000" />
-	<property name="sonar.jdbc.url"
-		value="jdbc:mysql://localhost:3306/sonar?useUnicode=true&amp;characterEncoding=utf8" />
-	<property name="sonar.jdbc.driverClassName" value="com.mysql.jdbc.Driver" />
+	<property name="sonar.jdbc.url" value="jdbc:h2:tcp://localhost:9092/sonar" />
+	<property name="sonar.jdbc.driverClassName" value="org.h2.Driver" />
 	<property name="sonar.jdbc.username" value="sonar" />
 	<property name="sonar.jdbc.password" value="sonar" />
-	<property name="sonar.projectKey"
-		value="main.java.com.softserve.delivery.a8_2.vacation.checker" />
-	<property name="sonar.projectName"
-		value="VacationChecker Java Project analyzed with the SonarQube Ant Task" />
+	<property name="sonar.projectKey" value="main.java.com.softserve.delivery.a82.vacation.checker" />
+	<property name="sonar.projectName" value="VacationChecker Java Project analyzed with the SonarQube Ant Task" />
 	<property name="sonar.projectVersion" value="1.0" />
 	<property name="sonar.language" value="java" />
 	<property name="sonar.java.source" value="1.6" />
@@ -47,31 +43,26 @@
 	</path>
 
 	<taskdef uri="antlib:org.jacoco.ant" resource="org/jacoco/ant/antlib.xml">
-		<classpath
-			path="${testlib.dir}/org.jacoco.ant-0.6.5.201403032054-nodeps.jar" />
+		<classpath path="${testlib.dir}/org.jacoco.ant-0.6.5.201403032054-nodeps.jar" />
 	</taskdef>
 
 	<target name="clean" description="remove previous files">
 		<delete dir="./${target.dir}" />
+		<delete dir="./.sonar" />
 	</target>
 
-	<target name="compile" depends="clean"
-		description="compile Java source code to class files">
+	<target name="compile" depends="clean" description="compile Java source code to class files">
 		<mkdir dir="./${target.dir}" />
-		<javac srcdir="${src.dir}" destdir="${target.dir}" classpathref="classpath"
-			includeantruntime="false" debug="true" />
+		<javac srcdir="${src.dir}" destdir="${target.dir}" classpathref="classpath" includeantruntime="false" debug="true" />
 	</target>
 
-	<target name="compileTest" depends="compile"
-		description="compile test source code to class files">
-		<javac srcdir="${test.dir}" destdir="./${target.dir}"
-			classpathref="test.classpath" includeantruntime="false" />
+	<target name="compileTest" depends="compile" description="compile test source code to class files">
+		<javac srcdir="${test.dir}" destdir="./${target.dir}" classpathref="test.classpath" includeantruntime="false" />
 	</target>
 
 	<target name="junit" depends="compileTest" unless="skipTests">
 		<mkdir dir="${test.reports.dir}" />
-		<jacoco:coverage destfile="${test.reports.dir}/jacoco.exec"
-			xmlns:jacoco="antlib:org.jacoco.ant">
+		<jacoco:coverage destfile="${test.reports.dir}/jacoco.exec" xmlns:jacoco="antlib:org.jacoco.ant">
 			<junit fork="true" forkmode="once" printsummary="yes">
 				<classpath refid="classpath" />
 				<classpath refid="test.classpath" />
@@ -123,16 +114,14 @@
 		<sonar:sonar xmlns:sonar="antlib:org.sonar.ant" />
 	</target>
 
-	<target name="jar" depends="sonar"
-		description="create a Jar file for the application">
+	<target name="jar" depends="sonar" description="create a Jar file for the application">
 		<jar destfile="./${target.dir}/vacationChecker.jar">
 			<fileset dir="./${target.dir}" includes="**/*.class" />
 			<manifest>
 				<attribute name="Class-Path" value="." />
 				<attribute name="Main-Class" value="${main-class}" />
 			</manifest>
-			<zipgroupfileset excludes="META-INF/*.SF" dir="${lib.dir}"
-				includes="*.jar" />
+			<zipgroupfileset excludes="META-INF/*.SF" dir="${lib.dir}" includes="*.jar" />
 			<fileset dir="./${lib.dir}" includes="**/*.properties" />
 		</jar>
 	</target>
