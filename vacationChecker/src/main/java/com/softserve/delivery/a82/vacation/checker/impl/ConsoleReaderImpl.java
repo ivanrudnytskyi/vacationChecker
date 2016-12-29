@@ -46,9 +46,7 @@ public class ConsoleReaderImpl implements VacationReader {
                 return FORMATTER.parse(input);
 
             } catch (ParseException e) {
-                System.out
-                        .println("You have entered the wrong value. Try again.");
-                LOGGER.error("ConsoleReader.parseDate() " + e);
+                LOGGER.info("You have entered the wrong value. Try again.");
             }
         }
 
@@ -80,8 +78,7 @@ public class ConsoleReaderImpl implements VacationReader {
         List<Date> dates = new ArrayList<Date>();
         Scanner scanner = new Scanner(System.in);
 
-        System.out
-                .println("Enter four dates - the beginning and the end of the two vacations in the format "
+        LOGGER.info("Enter four dates - the beginning and the end of the two vacations in the format "
                         + DATE_FORMAT
                         + " (only numbers). To exit enter "
                         + EXIT + ".");
@@ -99,8 +96,7 @@ public class ConsoleReaderImpl implements VacationReader {
 
             if (endDateBeforeStartDate(dates)) {
                 dates.remove(dates.size() - 1);
-                System.out
-                        .println("The end date is before the start date. Please, enter the correct end date");
+                LOGGER.info("The end date is before the start date. Please, enter the correct end date");
             }
 
         } while (dates.size() < DATES_NUMBER && !input.equalsIgnoreCase(EXIT));

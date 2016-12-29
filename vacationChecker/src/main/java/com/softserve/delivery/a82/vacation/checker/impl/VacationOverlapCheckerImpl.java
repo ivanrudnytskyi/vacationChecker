@@ -71,11 +71,11 @@ public class VacationOverlapCheckerImpl implements VacationChecker {
             for (int i = 0; i < VacationHandler.getVacations().size() - 1; i++) {
                 if (areVacationsOverlapped(VacationHandler.getVacations()
                         .get(i), VacationHandler.getVacations().get(i + 1))) {
-                    System.out.println("Overlap "
+                    LOGGER.info("Overlap "
                             + VacationHandler.getVacations().get(i) + " and "
                             + VacationHandler.getVacations().get(i + 1));
                 } else {
-                    System.out.println("No overlap for "
+                    LOGGER.info("No overlap for "
                             + VacationHandler.getVacations().get(i) + " and "
                             + VacationHandler.getVacations().get(i + 1));
                 }
